@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Toast } from "../components/Toast";
 const { VITE_APP_HOST } = import.meta.env;
 
 const SignUp = () => {
@@ -73,12 +74,19 @@ const SignUp = () => {
       navigate("/auth/login");
     } catch (error) {
       setMessage("註冊失敗: " + error.message.toString());
+      console.log(error.response);
+      Toast.fire({
+        icon: "error",
+        html: `<p class='text-red-600'>${error?.response?.data?.message}</p>`,
+      });
     }
   };
 
   return (
     <div className="flex flex-col">
-      <h2 className="text-center text-2xl font-bold mb-12 -mt-7">註冊帳號</h2>
+      <h2 className="text-center text-2xl font-bold mb-12 md:-mt-7">
+        註冊帳號
+      </h2>
       <form action="">
         <div className="mb-2">
           <label htmlFor="email">Email</label>
